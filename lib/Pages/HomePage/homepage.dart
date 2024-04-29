@@ -9,7 +9,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
-
   bool _isIncrement = true;
 
   void _incrementCounter() {
@@ -42,20 +41,20 @@ class _HomePageState extends State<HomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
+          children: [
+            const Text(
               'Counter:',
               style: TextStyle(fontSize: 24),
             ),
             Text(
               '$_counter',
-              style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Increment',
                   style: TextStyle(fontSize: 16),
                 ),
@@ -66,6 +65,7 @@ class _HomePageState extends State<HomePage> {
                   value: _isIncrement,
                   onChanged: (value) {
                     setState(() {
+                      _counter++;
                       _isIncrement = value;
                     });
                   },
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   width: size.width * 0.02,
                 ),
-                Text(
+                const Text(
                   'Decrement',
                   style: TextStyle(fontSize: 16),
                 ),
