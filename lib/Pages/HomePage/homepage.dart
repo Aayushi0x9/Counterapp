@@ -1,27 +1,11 @@
+import 'package:provider/provider.dart';
+import 'package:timer_app/Controller/theme_controller.dart';
 import 'package:timer_app/headers.dart';
 
-class HomePage extends StatefulWidget {
+import '../../Controller/countercontroller.dart';
+
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-  bool _isIncrement = true;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +20,17 @@ class _HomePageState extends State<HomePage> {
             },
             icon: Icon(Icons.bubble_chart_outlined),
           ),
+          IconButton(
+            onPressed: () {
+              Provider.of<ThemeController>(
+                context,
+                listen: false,
+              ).ChangeTheme();
+            },
+            icon: Icon(Provider.of<ThemeController>(context).isDark
+                ? Icons.light_mode_outlined
+                : Icons.dark_mode_outlined),
+          ),
         ],
       ),
       body: Center(
@@ -47,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 24),
             ),
             Text(
-              '$_counter',
+              '${Provider.of<CounterController>(context, listen: false).Counter}',
               style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
@@ -62,14 +57,13 @@ class _HomePageState extends State<HomePage> {
                   width: size.width * 0.02,
                 ),
                 Switch(
-                  value: _isIncrement,
-                  onChanged: (value) {
-                    setState(() {
-                      _counter++;
-                      _isIncrement = value;
-                    });
-                  },
-                ),
+                    value: Provider.of<CounterController>(context).isIncrement,
+                    onChanged: (value) {
+                      Provider.of<CounterController>(context, listen: false)
+                          .Increament();
+                      Provider.of<CounterController>(context, listen: false)
+                          .isIncrement = value;
+                    }),
                 SizedBox(
                   width: size.width * 0.02,
                 ),
@@ -83,9 +77,17 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _isIncrement ? _incrementCounter : _decrementCounter,
+        onPressed: () {
+          Provider.of<CounterController>(context, listen: false).isIncrement
+              ? Provider.of<CounterController>(context, listen: false)
+                  .Increament()
+              : Provider.of<CounterController>(context, listen: false)
+                  .Decreament();
+        },
         child: Icon(
-          _isIncrement ? Icons.add : Icons.remove,
+          Provider.of<CounterController>(context, listen: false).isIncrement
+              ? Icons.add
+              : Icons.remove,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

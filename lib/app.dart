@@ -1,3 +1,6 @@
+import 'package:provider/provider.dart';
+import 'package:timer_app/Controller/theme_controller.dart';
+
 import 'headers.dart';
 
 class MyApp extends StatelessWidget {
@@ -62,7 +65,9 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      themeMode: ThemeMode.system,
+      themeMode: Provider.of<ThemeController>(context).isDark
+          ? ThemeMode.dark
+          : ThemeMode.light,
       home: HomePage(),
     );
   }
